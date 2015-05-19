@@ -1,0 +1,6 @@
+name: PersistantPvP
+main: net.samongi.PersistantPvP.PersistantPvP
+version: 0.0
+description: A never ending pvp game
+author: Migsect
+depend: [SamongiLib]

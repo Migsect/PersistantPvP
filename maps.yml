@@ -1,0 +1,25 @@
+maps:
+  townsquare:
+    tag: twns
+    display-name: Townsquare
+    games:
+     - death-match
+     - gole
+    world: Golemnaut
+    center: 2025.5 80 1998.5
+    radius: 100.0
+    map-bottom: 0.0
+    spawnpoints:
+      default:
+       - 2005.5 82.0 1963.5
+       - 2053.5 83.0 1998.5
+       - 1996.5 75.0 2019.5
+       - 2025.5 80.0 1998.5
+       - 2051.5 75.0 1967.5
+       - 2020.5 76.0 1968.5
+       - 1984.5 76.0 1965.5
+       - 1976.5 76.0 1985.5
+      red-team:
+       - 2053.5 83.0 1998.5
+      blue-team:
+       - 2005.5 82.0 1963.5
