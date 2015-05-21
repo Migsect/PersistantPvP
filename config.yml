@@ -1,1 +1,3 @@
 debug: true
+loadout-type: SINGLE
+single-loadout: 'basic'

@@ -23,9 +23,11 @@ public class PersistantPvP extends JavaPlugin
 	private GameHandler game_handler;
 	private ScoreKeeper score_keeper;
 	
+	
 	public void onEnable()
 	{
 		// config handling.
+	  //this.saveDefaultConfig();
     this.getConfig().options().copyDefaults(true);
     this.saveConfig();
     debug = this.getConfig().getBoolean("debug");
@@ -33,11 +35,23 @@ public class PersistantPvP extends JavaPlugin
     // map-config handling;
     ConfigAccessor map_config = new ConfigAccessor(this, "maps.yml");
     map_config.getConfig().options().copyDefaults(true);
-    map_config.saveConfig();
+    
+    // loadout-config handling:
+    ConfigAccessor loadout_config = new ConfigAccessor(this, "loadouts.yml");
+    loadout_config.getConfig().options().copyDefaults(true);
+    loadout_config.saveConfig();
+    
+    // random-loadout-config handling:
+    ConfigAccessor rand_loadout_config = new ConfigAccessor(this, "loadouts-random.yml");
+    rand_loadout_config.getConfig().options().copyDefaults(true);
+    rand_loadout_config.saveConfig();
     
     // Game Handler handling
-    this.game_handler = new GameHandler();
+    this.game_handler = new GameHandler(this);
     game_handler.parseMapConfig(map_config);
+    game_handler.parseLoadoutConfig(loadout_config);
+    game_handler.praseLoadoutRandomConfig(rand_loadout_config);
+    // initial map switch.
     game_handler.switch_maps("twns");
     
     // Scorekeeper

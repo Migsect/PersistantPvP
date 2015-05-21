@@ -33,7 +33,7 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		handler.getCurrentLoadout().equipe(event.getPlayer());
+		handler.fetchLoadout().equipe(event.getPlayer());
 		handler.getCurrentMap().spawnPlayer(event.getPlayer());
 		keeper.setScoreboard(event.getPlayer());
 	}
@@ -43,7 +43,7 @@ public class PlayerListener implements Listener
 	{
 		int score = keeper.getScore(event.getPlayer());
 		int num_players = PersistantPvP.group.getPlayers().size();
-		handler.getCurrentLoadout().equipe(event.getPlayer());
+		handler.fetchLoadout().equipe(event.getPlayer());
 		
 		BukkitRunnable task = new BukkitRunnable(){
 			@Override
@@ -64,7 +64,7 @@ public class PlayerListener implements Listener
 			public void run()
 			{
 				handler.getCurrentMap().spawnPlayer(player);
-				handler.getCurrentLoadout().equipe(event.getPlayer());
+				handler.fetchLoadout().equipe(event.getPlayer());
 			}
 		};
 		task.runTask(plugin);
