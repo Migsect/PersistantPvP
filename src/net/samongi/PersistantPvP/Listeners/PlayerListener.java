@@ -63,6 +63,7 @@ public class PlayerListener implements Listener
 			@Override
 			public void run()
 			{
+			  if(PersistantPvP.debug)PersistantPvP.logger.info("Spawning plater " + player.getName());
 				handler.getCurrentMap().spawnPlayer(player);
 				handler.fetchLoadout().equipe(event.getPlayer());
 			}

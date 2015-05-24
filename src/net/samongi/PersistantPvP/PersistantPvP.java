@@ -35,6 +35,7 @@ public class PersistantPvP extends JavaPlugin
     // map-config handling;
     ConfigAccessor map_config = new ConfigAccessor(this, "maps.yml");
     map_config.getConfig().options().copyDefaults(true);
+    map_config.saveConfig();
     
     // loadout-config handling:
     ConfigAccessor loadout_config = new ConfigAccessor(this, "loadouts.yml");

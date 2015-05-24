@@ -1,6 +1,6 @@
 loadouts:
   basic:
-    display-name: "Fight Trusted"
+    display-name: "&eFight Trusted"
     weight: 100
     gamemode: ADVENTURE
     helmet:
@@ -40,7 +40,7 @@ loadouts:
       '0':
         material: IRON_SWORD
         durability: 0
-        display-name: "&eButter Knife" 
+        display-name: "&cButter Knife" 
         lore:
          - "&7If you made the compairson of bodies"
          - "&7as butter..."
@@ -65,6 +65,166 @@ loadouts:
          - "&7When you need that extra punch."
         enchantments:
           KNOCKBACK: 10
+    effects:
+      feed:
+        type: SATURATION
+        strength: 3
+        duration: 360000
+        ambient: false
+        particles: false
+      spawn-prot:
+        type: DAMAGE_RESISTANCE
+        strength: 4
+        duration: 100
+        ambient: true
+        particles: true
+  runner:
+    display-name: "Run n Gun"
+    weight: 100
+    gamemode: ADVENTURE
+    helmet:
+      material: LEATHER_HELMET
+      durability: 0
+      display-name: "&eBullet Cap" 
+      lore:
+       - "&7For when you hit something going fast!"
+      enchantments:
+        DURABILITY: 10
+    chestplate:
+      material: IRON_CHESTPLATE
+      durability: 0
+      display-name: "&eChest Shiled" 
+      lore:
+       - "&7Big hunk of metal, what else for?"
+      enchantments:
+        DURABILITY: 10
+    leggings:
+      material: LEATHER_LEGGINGS
+      durability: 0
+      display-name: "&ePosh Pantaloons" 
+      lore:
+       - "&7Nice feeling."
+      enchantments:
+        DURABILITY: 10
+    boots:
+      material: LEATHER_BOOTS
+      durability: 0
+      display-name: "&eTwig Stompers" 
+      lore:
+       - "&7For stomping in twigs."
+      enchantments:
+        DURABILITY: 10
+    inventory-slots:
+      '0':
+        material: STONE_SWORD
+        durability: 0
+        display-name: "&eSlabber Blade" 
+        lore:
+         - "&7Made of Slab!"
+        enchantments:
+          DURABILITY: 10
+      '1':
+        material: BOW
+        durability: 0
+        display-name: "&eSplinter Slinger" 
+        lore:
+         - "&7Not as effective as other means but"
+         - "&7what can you expect?"
+        enchantments:
+          DURABILITY: 10
+          ARROW_DAMAGE: 2
+          ARROW_INFINITE: 1 
+      '2':
+        material: ARROW
+        durability: 0
+        display-name: "&cWhack-A-Arrow" 
+        lore:
+         - "&7When you need that extra punch."
+        enchantments:
+          KNOCKBACK: 10
+    effects:
+      feed:
+        type: SATURATION
+        strength: 3
+        duration: 360000
+        ambient: false
+        particles: false
+      spawn-prot:
+        type: DAMAGE_RESISTANCE
+        strength: 4
+        duration: 100
+        ambient: true
+        particles: true
+      speed:
+        type: SPEED
+        strength: 2
+        duration: 360000
+        ambient: false
+        particles: false
+  sniper:
+    display-name: "Sneaky Sniper"
+    weight: 100
+    gamemode: ADVENTURE
+    helmet:
+      material: LEATHER_HELMET
+      durability: 0
+      display-name: "&eBullet Cap" 
+      lore:
+       - "&7For when you hit something going fast!"
+      enchantments:
+        DURABILITY: 10
+    chestplate:
+      material: LEATHER_CHESTPLATE
+      durability: 0
+      display-name: "&eCow Hide" 
+      lore:
+       - "&7Big hunk of metal, what else for?"
+      enchantments:
+        DURABILITY: 10
+    leggings:
+      material: LEATHER_LEGGINGS
+      durability: 0
+      display-name: "&ePosh Pantaloons" 
+      lore:
+       - "&7Nice feeling."
+      enchantments:
+        DURABILITY: 10
+    boots:
+      material: LEATHER_BOOTS
+      durability: 0
+      display-name: "&eTwig Stompers" 
+      lore:
+       - "&7For stomping in twigs."
+      enchantments:
+        DURABILITY: 10
+    inventory-slots:
+      '0':
+        material: STONE_SWORD
+        durability: 0
+        display-name: "&eSlabber Blade" 
+        lore:
+         - "&7Made of Slab!"
+        enchantments:
+          DURABILITY: 10
+      '1':
+        material: BOW
+        durability: 0
+        display-name: "&cWhack-o-Bow" 
+        lore:
+         - "&7It hurts..."
+        enchantments:
+          DURABILITY: 10
+          ARROW_DAMAGE: 4
+          ARROW_INFINITE: 1 
+          KNOCKBACK: 2
+      '2':
+        material: ARROW
+        durability: 0
+        display-name: "&cBurn-o-Arrow" 
+        lore:
+         - "&7When you need that extra punch."
+        enchantments:
+          FIRE_ASPECT: 2
     effects:
       feed:
         type: SATURATION

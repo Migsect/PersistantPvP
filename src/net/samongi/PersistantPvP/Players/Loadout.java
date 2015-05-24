@@ -57,14 +57,25 @@ public class Loadout
     if(this.game_mode == null) game_mode = GameMode.ADVENTURE;
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Gamemode: " + game_mode);
     
+    // Helmet Getting
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Getting Helmet... ");
-    this.helmet = ItemUtilities.getConfigItemStack(config, path + ".helmet");
+    if(config.getConfig().getConfigurationSection(path).getKeys(false).contains("helmet")) this.helmet = ItemUtilities.getConfigItemStack(config, path + ".helmet");
+    else if(PersistantPvP.debug) PersistantPvP.logger.info("    Found no helmet... ");
+    
+    // Chestplate Getting
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Getting Chestplate... ");
-    this.chestplate = ItemUtilities.getConfigItemStack(config, path + ".chestplate");
+    if(config.getConfig().getConfigurationSection(path).getKeys(false).contains("chestplate")) this.chestplate = ItemUtilities.getConfigItemStack(config, path + ".chestplate");
+    else if(PersistantPvP.debug) PersistantPvP.logger.info("    Found no chestplate... ");
+    
+    // Leggings Getting
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Getting Leggings... ");
-    this.leggings = ItemUtilities.getConfigItemStack(config, path + ".leggings");
+    if(config.getConfig().getConfigurationSection(path).getKeys(false).contains("leggings")) this.leggings = ItemUtilities.getConfigItemStack(config, path + ".leggings");
+    else if(PersistantPvP.debug) PersistantPvP.logger.info("    Found no leggings... ");
+    
+    // Boots Getting
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Getting Boots... ");
-    this.boots = ItemUtilities.getConfigItemStack(config, path + ".boots");
+    if(config.getConfig().getConfigurationSection(path).getKeys(false).contains("boots")) this.boots = ItemUtilities.getConfigItemStack(config, path + ".boots");
+    else if(PersistantPvP.debug) PersistantPvP.logger.info("    Found no boots... ");
     
     List<String> item_keys = new ArrayList<>(config.getConfig().getConfigurationSection(path + ".inventory-slots").getKeys(false));
     for(String n_str : item_keys)
@@ -85,15 +96,21 @@ public class Loadout
     List<String> effect_keys = new ArrayList<>(config.getConfig().getConfigurationSection(path + ".effects").getKeys(false));
     for(String e_str : effect_keys)
     {
+      if(PersistantPvP.debug) PersistantPvP.logger.info(" Reading Potion Types: ");
       String type = config.getConfig().getString(path + ".effects." + e_str + ".type");
+      if(PersistantPvP.debug) PersistantPvP.logger.info("    Got type: '" + type + "'");
       PotionEffectType potion_effect = PotionEffectType.getByName(type);
       if(potion_effect == null) continue;
       int strength = config.getConfig().getInt(path + ".effects." + e_str + ".strength");
+      if(PersistantPvP.debug) PersistantPvP.logger.info("    Got strength: '" + strength + "'");
       int duration = config.getConfig().getInt(path + ".effects." + e_str + ".duration");
+      if(PersistantPvP.debug) PersistantPvP.logger.info("    Got duration: '" + duration + "'");
       boolean ambient = config.getConfig().getBoolean(path + ".effects." + e_str + ".ambient");
+      if(PersistantPvP.debug) PersistantPvP.logger.info("    Got ambient: '" + ambient + "'");
       boolean particles = config.getConfig().getBoolean(path + ".effects." + e_str + ".particles");
+      if(PersistantPvP.debug) PersistantPvP.logger.info("    Got particles: '" + particles + "'");
       
-      PotionEffect effect = new PotionEffect(potion_effect, strength, duration, ambient, particles);
+      PotionEffect effect = new PotionEffect(potion_effect, duration, strength, ambient, particles);
       effects.add(effect);
     }
   }
@@ -147,6 +164,7 @@ public class Loadout
   
   public void equipe(Player player)
   {
+    if(PersistantPvP.debug)PersistantPvP.logger.info("Equipping " + this.getDisplayName() + " to " + player.getName());
   	player.setGameMode(this.game_mode);
     // Cleaning up.
     player.getInventory().clear();
@@ -166,8 +184,10 @@ public class Loadout
       player.getInventory().setItem(i, items.get(i));
     }
     // Applying all the potion effects.
+
     for(PotionEffect e : effects)
     {
+      if(PersistantPvP.debug)PersistantPvP.logger.info("  Equipping potion effect: " + e.getType().toString());
     	player.addPotionEffect(e);
     }
     

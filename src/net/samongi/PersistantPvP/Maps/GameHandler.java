@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.bukkit.entity.Player;
 
@@ -73,10 +74,29 @@ public class GameHandler
 	}
 	
 	public GameMap getCurrentMap(){return this.current_map;}
+	/**fetches a loadout depending on the loadouts.
+	 * 
+	 * @return
+	 */
 	public Loadout fetchLoadout(){
 	  if(loadout_type.equals("SINGLE"))
 	  {
 	    return this.loadouts.get(single_loadout);
+	  }
+	  if(loadout_type.equals("RANDOM"))
+	  {
+	    Random rand = new Random();
+	    List<Loadout> rand_loadouts = new ArrayList<Loadout>(loadouts.values());
+	    int total_weight = 0;
+	    for(Loadout l : rand_loadouts) total_weight += l.getWeight();
+	    int random_weight = rand.nextInt(total_weight);
+	    for(Loadout l : rand_loadouts)
+	    {
+	      // if our random_weight is less than the gotten weight, return it.
+	      if(random_weight < l.getWeight()) return l;
+	      random_weight -= l.getWeight(); // remove the wieght
+	      
+	    }
 	  }
 	  return null;
 	}
