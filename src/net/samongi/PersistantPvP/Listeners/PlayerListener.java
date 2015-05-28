@@ -2,8 +2,11 @@ package net.samongi.PersistantPvP.Listeners;
 
 import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.PersistantPvP.Maps.GameHandler;
+import net.samongi.PersistantPvP.Players.Loadout;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
+import net.samongi.SamongiLib.Lambda.Action.PlayerAction;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -33,8 +36,19 @@ public class PlayerListener implements Listener
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		handler.fetchLoadout().equipe(event.getPlayer());
-		handler.getCurrentMap().spawnPlayer(event.getPlayer());
+	  BukkitRunnable task = new BukkitRunnable(){
+      private final Player player = event.getPlayer();
+      @Override
+      public void run()
+      {
+        if(PersistantPvP.debug)PersistantPvP.logger.info("Spawning plater " + player.getName());
+        handler.getCurrentMap().spawnPlayer(player);
+        Loadout lo = handler.fetchLoadout();
+        lo.equipe(player);
+        sendTitle(player, lo);
+      }
+    };
+    task.runTask(plugin);
 		keeper.setScoreboard(event.getPlayer());
 	}
 	
@@ -49,7 +63,8 @@ public class PlayerListener implements Listener
 			@Override
 			public void run()
 			{
-				PersistantPvP.group.performAction((Player player) -> keeper.addScore(player, score / num_players));
+			  PlayerAction action = (Player player) -> (keeper.addScore(player, score / num_players));
+        PersistantPvP.group.performAction(action);
 			}
 		};
 		task.runTask(plugin);
@@ -65,7 +80,9 @@ public class PlayerListener implements Listener
 			{
 			  if(PersistantPvP.debug)PersistantPvP.logger.info("Spawning plater " + player.getName());
 				handler.getCurrentMap().spawnPlayer(player);
-				handler.fetchLoadout().equipe(event.getPlayer());
+				Loadout lo = handler.fetchLoadout();
+				lo.equipe(player);
+				sendTitle(player, lo);
 			}
 		};
 		task.runTask(plugin);
@@ -111,5 +128,12 @@ public class PlayerListener implements Listener
 				}
 			}
 		}
+	}
+	private void sendTitle(Player player, Loadout lo)
+	{
+	  String command0 = "title " + player.getName() + " subtitle {text:\"" + lo.getSubtitle() +"\", color:gray, italic:true}";
+    String command1 = "title " + player.getName() + " title {text:\"You are now a " + lo.getDisplayName() + "\"}";
+    plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), command0);
+    plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), command1);
 	}
 }

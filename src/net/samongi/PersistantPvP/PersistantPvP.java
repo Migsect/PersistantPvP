@@ -30,7 +30,7 @@ public class PersistantPvP extends JavaPlugin
 	  //this.saveDefaultConfig();
     this.getConfig().options().copyDefaults(true);
     this.saveConfig();
-    debug = this.getConfig().getBoolean("debug");
+    debug = this.getConfig().getBoolean("debug", true);
     
     // map-config handling;
     ConfigAccessor map_config = new ConfigAccessor(this, "maps.yml");

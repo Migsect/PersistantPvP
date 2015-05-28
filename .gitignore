@@ -45,3 +45,7 @@ Temporary Items
 *.class
 bin/net/samongi/PersistantPvP/Listeners/PlayerListener$1.class
 *.class
+*.class
+*.class
+*.class
+.classpath

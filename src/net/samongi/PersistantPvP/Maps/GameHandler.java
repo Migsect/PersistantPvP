@@ -1,11 +1,13 @@
 package net.samongi.PersistantPvP.Maps;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.samongi.PersistantPvP.PersistantPvP;
@@ -50,6 +52,7 @@ public class GameHandler
 	{
     if(PersistantPvP.debug) PersistantPvP.logger.info("Parsing loadout config");
 	  // Reading all the keys.
+    /*
 	  String loadouts_key = "loadouts";
 	  List<String> lo_keys = new ArrayList<>(config.getConfig().getConfigurationSection(loadouts_key).getKeys(false));
 	  for(String lo_key : lo_keys )
@@ -57,6 +60,18 @@ public class GameHandler
 	    if(PersistantPvP.debug) PersistantPvP.logger.info("Parsing loadout with key: '" + lo_key + "'");
 	    Loadout loadout = new Loadout(config, loadouts_key + "." + lo_key);
 	    loadouts.put(lo_key, loadout);
+	  }
+	  */
+	  File loadout_folder = new File(plugin.getDataFolder(),"loadouts");
+	  if(!loadout_folder.exists() || !loadout_folder.isDirectory()) return;
+	  String[] loadout_files = loadout_folder.list();
+	  for(String file_name : loadout_files)
+	  {
+	    if(!file_name.endsWith(".yml")) return;
+	    ConfigAccessor loadout_file = new ConfigAccessor(plugin, loadout_folder, file_name);
+	    if(PersistantPvP.debug) PersistantPvP.logger.info("Parsing loadout file: '" + file_name + "'");
+	    Loadout loadout = new Loadout(loadout_file, "loadout");
+      loadouts.put(file_name.replace(".yml", ""), loadout);
 	  }
 	}
 	public void praseLoadoutRandomConfig(ConfigAccessor config)
@@ -69,8 +84,15 @@ public class GameHandler
 		if(!this.maps.containsKey(map)) return; // Tell them this.
 		this.current_map = this.maps.get(map);
 		// Teleport the players to the new map.
-		PersistantPvP.group.performAction((Player player) -> this.fetchLoadout().equipe(player));
-		PersistantPvP.group.performAction((Player player) -> current_map.spawnPlayer(player));
+		PersistantPvP.group.performAction((Player player) -> {
+		  Loadout lo = this.fetchLoadout();
+		  lo.equipe(player);
+		  current_map.spawnPlayer(player);
+		  String command0 = "title " + player.getName() + " subtitle {text:\"" + lo.getSubtitle() +"\", color:gray, italic:true}";
+	    String command1 = "title " + player.getName() + " title {text:\"You are now a " + lo.getDisplayName() + "\"}";
+	    plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), command0);
+	    plugin.getServer().dispatchCommand(Bukkit.getConsoleSender(), command1);
+		});
 	}
 	
 	public GameMap getCurrentMap(){return this.current_map;}
@@ -100,5 +122,4 @@ public class GameHandler
 	  }
 	  return null;
 	}
-	
 }

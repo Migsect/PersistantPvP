@@ -7,7 +7,7 @@ import java.util.Map;
 
 import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
-import net.samongi.SamongiLib.Utilities.ItemUtilities;
+import net.samongi.SamongiLib.Items.ItemUtilities;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -19,6 +19,7 @@ public class Loadout
 {
   private int weight = 0;
   String display_name = "Defautl Loadout One";
+  String subtitle = "";
   
 	private GameMode game_mode = GameMode.ADVENTURE;
   // Armor
@@ -50,7 +51,9 @@ public class Loadout
   {
     if(PersistantPvP.debug) PersistantPvP.logger.info("Creating new Loadout using path: '" + path + "'");
     this.display_name = config.getConfig().getString(path + ".display-name", "DEFAULT");
-    if(PersistantPvP.debug) PersistantPvP.logger.info("  Display Name: " + display_name);
+    if(PersistantPvP.debug) PersistantPvP.logger.info("  Display Name: '" + display_name + "'");
+    this.subtitle = config.getConfig().getString(path + ".subtitle", "");
+    if(PersistantPvP.debug) PersistantPvP.logger.info("  Subtitle Name: '" + subtitle + "'");
     this.weight = config.getConfig().getInt(path + ".weight",0);
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Weight: " + weight);
     this.game_mode = GameMode.valueOf(config.getConfig().getString(path + ".gamemode"));
@@ -126,6 +129,12 @@ public class Loadout
    * @return
    */
   public String getDisplayName(){return this.display_name;}
+  
+  /**Gets the subtitle of the loadout for respawn
+   * 
+   * @return
+   */
+  public String getSubtitle(){return this.subtitle;}
   
   /**Sets the helmet
    * 
