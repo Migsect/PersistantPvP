@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class PersistantPvP extends JavaPlugin
 {
-	public static Logger logger = Logger.getLogger("minecraft");
+	public static Logger logger;
 	public static boolean debug = false;
 	public static Group group = new ServerGroup(Bukkit.getServer());
 	
@@ -26,6 +26,7 @@ public class PersistantPvP extends JavaPlugin
 	
 	public void onEnable()
 	{
+	  logger = this.getLogger();
 		// config handling.
 	  //this.saveDefaultConfig();
     this.getConfig().options().copyDefaults(true);
@@ -68,4 +69,14 @@ public class PersistantPvP extends JavaPlugin
 	{
 		
 	}
+	
+  static final public void log(String to_log)
+  {
+    logger.info(to_log);
+  }
+  static final public void debugLog(String to_log)
+  {
+    if(debug == true) logger.info(to_log);
+  }
+  static final public boolean debug(){return debug;}
 }

@@ -41,10 +41,10 @@ public class DamageRecord
   public void awardPoints()
   {
     int player_score = keeper.getScore(player);
-    int remove_score = (int) Math.floor(player_score / 2.0);
+    int remove_score = (int) Math.ceil(player_score / 2.0);
     keeper.addScore(player, -remove_score);
     
-    int distribute_score = (int) Math.ceil(player_score / 2.0);
+    int distribute_score = (int) Math.floor(player_score / 2.0);
     if(distribute_score == 0) distribute_score = 2;
     int points_remaining = distribute_score;
     Map<String, Double> player_distrib = new HashMap<>();
@@ -56,8 +56,10 @@ public class DamageRecord
     while(points_remaining > 0) // points time
     {
       String highest_scorer = this.getHighestDamage(); // Get the highest player
-      player_distrib.remove(highest_scorer); // Removes them from the running
+      if(highest_scorer == null) break;
+      // player_distrib.remove(highest_scorer); // Removes them from the running
       player_damage.remove(highest_scorer); // They are cashing out
+      
       int award = (int) Math.ceil(player_distrib.get(highest_scorer) * distribute_score);
       if(award > distribute_score) award = distribute_score;
       distribute_score -= award;

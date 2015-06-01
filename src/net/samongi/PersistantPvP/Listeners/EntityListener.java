@@ -1,5 +1,6 @@
 package net.samongi.PersistantPvP.Listeners;
 
+import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
 
@@ -44,6 +45,7 @@ public class EntityListener implements Listener
       if(!(arrow.getShooter() instanceof Player)) return;
       damager = (Player) arrow.getShooter();
     }
+    PersistantPvP.debugLog("Adding " + damage + " from '" + damager.getName() + "' to '" + player.getName() + "'s DamageRecord");
     keeper.getDamageRecord(player).addDamage(damager.getName(), damage);
     
   }

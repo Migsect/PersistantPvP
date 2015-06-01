@@ -4,6 +4,7 @@ import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Players.Loadout;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
+import net.samongi.SamongiLib.Player.PlayerUtilities;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -66,6 +67,7 @@ public class PlayerListener implements Listener
 				Loadout lo = handler.fetchLoadout();
 				lo.equipe(player);
 				sendTitle(player, lo);
+				PlayerUtilities.removeArrows(player);
 			}
 		};
 		task.runTask(plugin);

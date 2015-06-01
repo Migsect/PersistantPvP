@@ -49,3 +49,4 @@ bin/net/samongi/PersistantPvP/Listeners/PlayerListener$1.class
 *.class
 *.class
 .classpath
+*.class

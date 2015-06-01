@@ -42,7 +42,7 @@ public class ScoreKeeper
 	{
 		if(!scores.containsKey(player)) scores.put(player, 0);
 		scores.put(player, scores.get(player) + amnt);
-		if(PersistantPvP.debug) PersistantPvP.logger.info("  Adding score to '"+ player +"': " + amnt);
+		PersistantPvP.debugLog("  Adding score to '"+ player +"': " + amnt);
 		
 		Score score = obj.getScore(player);
 		score.setScore(scores.get(player));
