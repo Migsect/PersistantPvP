@@ -1,4 +1,4 @@
-package net.samongi.PersistantPvP.Maps;
+package net.samongi.PersistantPvP.GameManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,10 +11,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.samongi.PersistantPvP.PersistantPvP;
+import net.samongi.PersistantPvP.Maps.GameMap;
 import net.samongi.PersistantPvP.Players.Loadout;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
 
-public class GameHandler
+public class GameManager
 {
   PersistantPvP plugin;
   
@@ -26,7 +27,7 @@ public class GameHandler
 	
 	HashMap<String, GameMap> maps = new HashMap<String, GameMap>();
 	
-	public GameHandler(PersistantPvP plugin)
+	public GameManager(PersistantPvP plugin)
 	{
 		this.plugin = plugin;
 		

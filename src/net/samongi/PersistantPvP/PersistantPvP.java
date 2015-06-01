@@ -2,9 +2,9 @@ package net.samongi.PersistantPvP;
 
 import java.util.logging.Logger;
 
+import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Listeners.EntityListener;
 import net.samongi.PersistantPvP.Listeners.PlayerListener;
-import net.samongi.PersistantPvP.Maps.GameHandler;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
 import net.samongi.SamongiLib.Player.Group;
@@ -20,7 +20,7 @@ public class PersistantPvP extends JavaPlugin
 	public static boolean debug = false;
 	public static Group group = new ServerGroup(Bukkit.getServer());
 	
-	private GameHandler game_handler;
+	private GameManager game_handler;
 	private ScoreKeeper score_keeper;
 	
 	
@@ -48,7 +48,7 @@ public class PersistantPvP extends JavaPlugin
     rand_loadout_config.saveConfig();
     
     // Game Handler handling
-    this.game_handler = new GameHandler(this);
+    this.game_handler = new GameManager(this);
     game_handler.parseMapConfig(map_config);
     game_handler.parseLoadoutConfig(loadout_config);
     game_handler.praseLoadoutRandomConfig(rand_loadout_config);
@@ -61,7 +61,7 @@ public class PersistantPvP extends JavaPlugin
     // Listeners
     PluginManager pm = this.getServer().getPluginManager();
     pm.registerEvents(new PlayerListener(this, this.game_handler, this.score_keeper), this);
-    pm.registerEvents(new EntityListener(), this);
+    pm.registerEvents(new EntityListener(this, this.game_handler, this.score_keeper), this);
 	}
 	
 	public void onDisable()
