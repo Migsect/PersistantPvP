@@ -15,7 +15,7 @@ import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.PersistantPvP.Maps.Spawn;
 import net.samongi.PersistantPvP.Maps.SpawnPoint;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
-import net.samongi.SamongiLib.Utilities.StringUtilities;
+import net.samongi.SamongiLib.Utilities.StringUtil;
 
 public class GameMap
 {
@@ -54,17 +54,17 @@ public class GameMap
     if(this.supported_games.size() < 1) PersistantPvP.logger.info("GAME-RUNNER - CONFIG ERROR in maps.yml for key '"+tag+"', Bad or no games fields.");
     if(this.supported_games.size() < 1) return;
       
-    List<Double> center_coords = StringUtilities.extractNumbers(config.getConfig().getString("maps."+tag+".center"));
+    List<Double> center_coords = StringUtil.extractNumbers(config.getConfig().getString("maps."+tag+".center"));
     if(center_coords.size() <= 2) PersistantPvP.logger.info("GAME-RUNNER - CONFIG ERROR in maps.yml for key '"+tag+"', Incomplete or not listed center coord.");
     if(center_coords.size() <= 2) return;
     center = new Location(this.world, center_coords.get(0),center_coords.get(1), center_coords.get(2));
     
-    List<Double> radius_amount = StringUtilities.extractNumbers(config.getConfig().getString("maps."+tag+".radius"));
+    List<Double> radius_amount = StringUtil.extractNumbers(config.getConfig().getString("maps."+tag+".radius"));
     if(radius_amount.size() <= 0)PersistantPvP.logger.info("GAME-RUNNER - CONFIG ERROR in maps.yml for key '"+tag+"', Incomplete or not listed radius.");
     if(radius_amount.size() <= 0) return;
     radius = radius_amount.get(0);
     
-    List<Double> map_bottom_amount = StringUtilities.extractNumbers(config.getConfig().getString("maps."+tag+".map-bottom"));
+    List<Double> map_bottom_amount = StringUtil.extractNumbers(config.getConfig().getString("maps."+tag+".map-bottom"));
     if(map_bottom_amount.size() <= 0) PersistantPvP.logger.info("GAME-RUNNER - CONFIG ERROR in maps.yml for key '"+tag+"', Incomplete or not listed map bottom.");
     if(map_bottom_amount.size() <= 0) return;
     radius = map_bottom_amount.get(0);
@@ -76,7 +76,7 @@ public class GameMap
       List<String> spawnpoints = config.getConfig().getStringList("maps."+tag+".spawnpoints."+k);
       for(String s : spawnpoints)
       {
-        List<Double> point_coords = StringUtilities.extractNumbers(s);
+        List<Double> point_coords = StringUtil.extractNumbers(s);
         if(center_coords.size() <= 2) PersistantPvP.logger.info("GAME-RUNNER - CONFIG ERROR in maps.yml for key '"+tag+"', Incomplete or not listed spawn coord.");
         if(center_coords.size() <= 2) return;
         Location point = new Location(this.world, point_coords.get(0),point_coords.get(1), point_coords.get(2));

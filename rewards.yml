@@ -1,0 +1,57 @@
+rewards:
+  healing_potion1:
+    material: POTION
+    durability: 8197
+    effects:
+      healing:
+        type: HEAL
+        strength: 0
+        duration: 1
+  healing_potion2:
+    material: POTION
+    durability: 8229
+    effects:
+      healing:
+        type: HEAL
+        strength: 1
+        duration: 1
+  healing_potion3:
+    material: POTION
+    durability: 8229
+    effects:
+      healing:
+        type: HEAL
+        strength: 2
+        duration: 1
+  regen_potion1:
+    material: POTION
+    durability: 8193
+    effects:
+      regen:
+        type: Regeneration
+        strength: 0
+        duration: 800
+  regen_potion2:
+    material: POTION
+    durability: 8225
+    effects:
+      regen:
+        type: Regeneration
+        strength: 1
+        duration: 800
+  regen_potion3:
+    material: POTION
+    durability: 8257
+    effects:
+      regen:
+        type: Regeneration
+        strength: 0
+        duration: 1600
+  regen_potion4:
+    material: POTION
+    durability: 8225
+    effects:
+      regen:
+        type: Regeneration
+        strength: 1
+        duration: 400

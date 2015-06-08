@@ -3,6 +3,7 @@ package net.samongi.PersistantPvP.Score;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**A damage record of who did what amount of damage to a player.
@@ -17,18 +18,21 @@ public class DamageRecord
   
   private final Map<String, Double> player_damage = new HashMap<>();
   private final Player player;
+  private String last_damager;
   
   public DamageRecord(Player player, ScoreKeeper keeper)
   {
     this.player = player;
     this.keeper = keeper;
   }
+  public Player getLastDamager(){return Bukkit.getPlayer(this.last_damager);}
   
   public void addDamage(String player, double amount)
   {
     if(this.player.getName().equals(player)) return;
     if(!player_damage.containsKey(player)) player_damage.put(player, 0.0);
-    player_damage.put(player, player_damage.get(player) + amount);
+    this.player_damage.put(player, player_damage.get(player) + amount);
+    this.last_damager = player;
   }
   public void resetDamage(String player)
   {
@@ -44,7 +48,7 @@ public class DamageRecord
     int remove_score = (int) Math.ceil(player_score / 2.0);
     keeper.addScore(player, -remove_score);
     
-    int distribute_score = (int) Math.floor(player_score / 2.0);
+    int distribute_score = remove_score;
     if(distribute_score == 0) distribute_score = 2;
     int points_remaining = distribute_score;
     Map<String, Double> player_distrib = new HashMap<>();
@@ -66,6 +70,38 @@ public class DamageRecord
       keeper.addScore(highest_scorer, award); // Adding the points to the player
     }
   }
+  /*
+  public void awardPoints()
+  {
+    int player_score = keeper.getScore(player);
+    int remove_score = (int) Math.ceil(player_score / 2.0);
+    keeper.addScore(player, -remove_score);
+    
+    // The score that can be distributed.
+    int distribute_score = (int) Math.ceil(player_score / 2.0);
+    if(distribute_score == 0) distribute_score = 2;
+    int points_remaining = distribute_score;
+    Map<String, Double> player_distrib = new HashMap<>();
+    
+    Double sum = 0.0;
+    // Getting the sum of all the damage that was dealt
+    for(String p : player_damage.keySet()) sum += player_damage.get(p);
+    
+    for(String p : player_damage.keySet()) player_distrib.put(p, player_damage.get(p) / sum);
+    
+    HashMap<String, Double> damages = (HashMap<String, Double>) this.player_damage;
+    Comparator<String> comp = new Comparator<String>()
+    {
+      @Override
+      public int compare(String a, String b)
+      {
+        if(damages.get(a) >= damages.get(b)) return 1;
+        else return -1;
+      } 
+    };
+    TreeMap<String, Double> sorted_damages = new TreeMap<String, Double>(comp);
+  }
+  */
   public String getHighestDamage()
   {
     String highest_player = null;
