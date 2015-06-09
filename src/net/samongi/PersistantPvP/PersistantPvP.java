@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Listeners.EntityListener;
 import net.samongi.PersistantPvP.Listeners.PlayerListener;
+import net.samongi.PersistantPvP.Score.Announcer;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
 import net.samongi.PersistantPvP.Score.StatKeeper;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
@@ -21,6 +22,7 @@ public class PersistantPvP extends JavaPlugin
 	public static Logger logger;
 	public static boolean debug = false;
 	public static Group group;
+	public static Announcer announcer;
 	
 	private GameManager game_handler;
 	private ScoreKeeper score_keeper;
@@ -79,6 +81,9 @@ public class PersistantPvP extends JavaPlugin
     game_handler.parseRewardsConfig(rewards_config);
     // initial map switch.
     game_handler.switch_maps("twns");
+    
+    // announcer setup
+    announcer = new Announcer(stat_keeper, score_keeper, game_handler);
     
     // Listeners
     PluginManager pm = this.getServer().getPluginManager();

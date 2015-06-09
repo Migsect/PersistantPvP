@@ -29,6 +29,10 @@ public class StatRecord implements Serializable
   final private Map<String, Integer> loadout_kills = new HashMap<>(); // Kills with a loadout
   final private Map<String, Integer> loadout_deaths = new HashMap<>(); // Deaths with a loadout
   
+  private int chain_kill_threshold = 140; // 4 seconds or 80 ticks
+  private int chain_kill_count = 0;
+  private int last_kill_time = 0;
+  
   private int current_kills = 0;
   private int last_streak = 0;
   private int largest_streak = 0;
@@ -68,7 +72,21 @@ public class StatRecord implements Serializable
     this.player_kills.put(player, this.player_kills.get(player_uuid) + amount);
     
     if(!this.loadout_kills.containsKey(loadout.getDisplayName())) this.loadout_kills.put(loadout.getDisplayName(), 0);
-    this.loadout_kills.put(loadout.getDisplayName(), this.loadout_kills.get(loadout) + amount);
+    this.loadout_kills.put(loadout.getDisplayName(), this.loadout_kills.get(loadout.getDisplayName()) + amount);
+    
+    // Get the last time a kill was made
+    int last_kill_t = this.last_kill_time;
+    // get the current ticks and set it
+    int current_t = (int) (System.currentTimeMillis() / 50);
+    this.last_kill_time = current_t;
+    // check to see if current - last is less than the threshold:
+    if(current_t - last_kill_t < chain_kill_threshold)
+    {
+      // Adding one if it is less
+      chain_kill_count++;
+    }
+    // else reset it to just 1.
+    else chain_kill_count = 1; // they only have one kill  now
   }
   /**Adds a kill to the stats.
    * 
@@ -181,6 +199,8 @@ public class StatRecord implements Serializable
     if(this.loadout_streak.get(loadout.getDisplayName()) == null) this.loadout_streak.put(loadout.getDisplayName(), 0);
     return this.loadout_streak.get(loadout.getDisplayName());
   }
+  
+  public int getCurrentChainKill(){return this.chain_kill_count;}
   
   public boolean saveRecord()
   {

@@ -21,7 +21,6 @@ public class ScoreKeeper
 	private Scoreboard scoreboard;
 	private Objective obj;
 	
-	
 	public ScoreKeeper()
 	{
 		manager = Bukkit.getScoreboardManager();
@@ -126,4 +125,5 @@ public class ScoreKeeper
 	public void removeDamageRecord(Player player){this.damage_records.remove(player);}
 	
 	public void setScoreboard(Player player){player.setScoreboard(scoreboard);}
+	
 }

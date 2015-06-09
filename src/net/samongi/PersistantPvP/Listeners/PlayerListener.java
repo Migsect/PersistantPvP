@@ -79,6 +79,8 @@ public class PlayerListener implements Listener
   		StatRecord kill_stat_record = stat_keeper.getRecord(kill_player);
   		death_stat_record.incrementDeath(kill_player, death_loadout); // killed by kill_player while using death_loadout
   		kill_stat_record.incrementKill(death_player, kill_loadout); // killed death_player using kill_loadout
+  		
+  		PersistantPvP.announcer.onKill(kill_player);
 		}
 		
    
