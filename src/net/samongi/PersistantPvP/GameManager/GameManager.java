@@ -165,7 +165,7 @@ public class GameManager
     task.runTask(plugin);
   }
 	
-	private void sendStatReport(Player player, Loadout loadout)
+	public void sendStatReport(Player player, Loadout loadout)
   {
     StatRecord record = keeper.getRecord(player);
     player.sendMessage(ChatColor.AQUA + "Lifetime Report:");

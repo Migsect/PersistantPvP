@@ -25,7 +25,6 @@ public class Announcer
     if(killstreak >= 4) this.killstreakAnnounce(player, killstreak);
   }
   
-  @SuppressWarnings("deprecation")
   private void chainKillAnnounce(Player player, int amount)
   {
     String command0 = "title " + player.getName() + " clear";
@@ -61,7 +60,7 @@ public class Announcer
         break;
     }
   }
-  @SuppressWarnings("deprecation")
+
   private void killstreakAnnounce(Player player, int amount)
   {
     Group group = PersistantPvP.group;

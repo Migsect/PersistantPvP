@@ -3,12 +3,15 @@ package net.samongi.PersistantPvP;
 import java.io.File;
 import java.util.logging.Logger;
 
+import net.samongi.PersistantPvP.Commands.CommandHelp;
+import net.samongi.PersistantPvP.Commands.CommandStats;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Listeners.EntityListener;
 import net.samongi.PersistantPvP.Listeners.PlayerListener;
 import net.samongi.PersistantPvP.Score.Announcer;
 import net.samongi.PersistantPvP.Score.ScoreKeeper;
 import net.samongi.PersistantPvP.Score.StatKeeper;
+import net.samongi.SamongiLib.CommandHandling.CommandHandler;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
 import net.samongi.SamongiLib.Player.Group;
 import net.samongi.SamongiLib.Player.ServerGroup;
@@ -27,6 +30,8 @@ public class PersistantPvP extends JavaPlugin
 	private GameManager game_handler;
 	private ScoreKeeper score_keeper;
 	private StatKeeper stat_keeper;
+	
+	private CommandHandler command_handler;
 	
 	
 	public void onEnable()
@@ -89,6 +94,11 @@ public class PersistantPvP extends JavaPlugin
     PluginManager pm = this.getServer().getPluginManager();
     pm.registerEvents(new PlayerListener(this, this.game_handler, this.score_keeper, this.stat_keeper), this);
     pm.registerEvents(new EntityListener(this, this.game_handler, this.score_keeper), this);
+    
+    // Commands
+    command_handler = new CommandHandler(this);
+    command_handler.registerCommand(new CommandHelp("persistantpvp",command_handler));
+    command_handler.registerCommand(new CommandStats("persistantpvp",stat_keeper, game_handler));
 	}
 	
 	public void onDisable()

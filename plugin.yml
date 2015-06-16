@@ -4,3 +4,65 @@ version: 0.0
 description: A never ending pvp game
 author: Migsect
 depend: [SamongiLib]
+commands:
+  persistantpvp:
+    description: This is the hub command for the plugin.
+    usage: /<command>
+    aliases: [ppvp]
+permissions:
+  persistantpvp.*:
+    description: Gives access to EVERYTHING
+    children:
+      persistantpvp.player: true
+      persistantpvp.admin: true
+  persistantpvp.player:
+    description: Gives access to commands relevant to players
+    default: true
+    children:
+      persistantpvp.help: true
+      persistantpvp.spectate: true
+      persistantpvp.stats: true
+      persistantpvp.suicide: true
+      persistantpvp.vote: true
+      persistantpvp.loadout.list: true
+      persistantpvp.loadout.help: true
+  persistantpvp.admin:
+    description: Gives access to commands relevant to admins
+    default: op
+    children:
+      persistantpvp.player: true
+      persistantpvp.stats.others: true
+      persistantpvp.stats.reset: true
+      persistantpvp.spectate.others: true
+      persistantpvp.suicide.others: true
+      persistantpvp.loadout: true
+      persistantpvp.loadout.others: true
+      persistantpvp.switchmap: true
+  persistantpvp.help:
+    description: Gives help text of all the commands
+  persistantpvp.stats:
+    description: Allows you to view your own stats.
+  persistantpvp.stats.others:
+    description: Allows you to view another player's stats
+  persistantpvp.stats.reset:
+    description: Allows you to reset another player's stats.
+  persistantpvp.spectate:
+    description: Allows you to spectate
+  persistantpvp.spectate.others:
+    description: Allows you to force others to spectate
+  persistantpvp.switchmap:
+    description: Allows you to force switch a map
+  persistantpvp.vote:
+    description: Allows you to vote for the next map
+  persistantpvp.loadout:
+    description: Allows you to switch to another loadout
+  persistantpvp.loadout.list:
+    description: Gives you a list of all the loadouts and their tag
+  persistantpvp.loadout.help:
+    description: Gives you the help text for a loadout
+  persistantpvp.loadout.others:
+    description: Allows you to give a loadout to others
+  persistantpvp.suicide:
+    description: Allows you to commit suicide
+  persistantpvp.suicide.others:
+    description: Allows you to make other players commit suicide
