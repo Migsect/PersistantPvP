@@ -50,10 +50,9 @@ public class GameManager
 		{
 		  Random rand = new Random();
 		  List<String> gametypes_list = new ArrayList<>(this.gametypes.keySet());
-		  this.current_gametype = gametypes.get(gametypes_list.get(rand.nextInt(gametypes.size())));
+		  this.setCurrentGameType(gametypes_list.get(rand.nextInt(gametypes.size())));
 		}
-		else this.current_gametype = gametypes.get(default_gametype);
-    PersistantPvP.log("Enabling GameType: '" + this.current_gametype.getDisplayName() + "'");
+		else this.setCurrentGameType(default_gametype);
 	}
 	private void parseGameTypes(ConfigurationSection section)
 	{
@@ -85,8 +84,8 @@ public class GameManager
 	{
 	  if(!this.hasGameTypeTag(tag)) return false;
 
-    PersistantPvP.log("Disabling GameType: '" + this.current_gametype.getDisplayName() + "'");
-	  this.current_gametype.onTypeDisable();
+	  if(this.current_gametype != null) PersistantPvP.log("Disabling GameType: '" + this.current_gametype.getDisplayName() + "'");
+	  if(this.current_gametype != null) this.current_gametype.onTypeDisable();
 	  
 	  this.current_gametype = this.gametypes.get(tag);
 	  
@@ -96,6 +95,7 @@ public class GameManager
 	}
 	public void reloadGameType()
 	{
+	  if(this.current_gametype == null) return;
     PersistantPvP.log("Disabling GameType: '" + this.current_gametype.getDisplayName() + "'");
     this.current_gametype.onTypeDisable();
     PersistantPvP.log("Enabling GameType: '" + this.current_gametype.getDisplayName() + "'");

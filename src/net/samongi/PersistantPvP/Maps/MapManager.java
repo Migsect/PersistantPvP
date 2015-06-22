@@ -28,6 +28,12 @@ public class MapManager
       PersistantPvP.debugLog("[MAPMANAGER] Added map with tag: " + m.getTag());
       this.maps.put(m.getTag(), m);
     }
+    
+    // Setting up the initial map:
+    List<String> map_keys = new ArrayList<>(this.getMapKeys());
+    Random rand = new Random();
+    String map_key = map_keys.get(rand.nextInt(map_keys.size()));
+    this.setCurrentMap(map_key);
   }
   public Set<String> getMapKeys(){return this.maps.keySet();}
   public MapData getMap(String key){return this.maps.get(key);}
@@ -40,9 +46,9 @@ public class MapManager
     if(map == null) return false;
     
     MapChangeEvent event = new MapChangeEvent(this.current_map, map);
+    this.current_map = map;
     Bukkit.getServer().getPluginManager().callEvent(event);
     
-    this.current_map = map;
     return true;
   }
   

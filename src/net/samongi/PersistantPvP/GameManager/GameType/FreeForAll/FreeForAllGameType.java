@@ -57,7 +57,7 @@ public class FreeForAllGameType implements GameType
     if(this.single_loadout == null) this.loadout_type = "RANDOM";
     else this.loadout_type = section.getString(".loadout-type", "SINGLE");
     
-    this.display_name = section.getString(".single-loadout", "DEFAULT_DISPLAY_NAME");
+    this.display_name = section.getString("display-name", "DEFAULT_DISPLAY_NAME");
     
     // rewards-config handling:
     File rewards_config_file = new File(plugin.getDataFolder(),"rewards.yml");
@@ -90,7 +90,7 @@ public class FreeForAllGameType implements GameType
     DamageRecord dmg_record = stat_keeper.getDamageRecord(death_player);
 
     Player high_dmg_player = dmg_record.getHighestDamage();
-    PersistantPvP.debugLog("Found Highest Damage Player to be: '" + high_dmg_player.getName() + "' for '" + death_player.getName() + "'");
+    if(high_dmg_player != null) PersistantPvP.debugLog("Found Highest Damage Player to be: '" + high_dmg_player.getName() + "' for '" + death_player.getName() + "'");
     
     if(high_dmg_player != null) high_dmg_player.getInventory().addItem(this.fetchReward());
     score_keeper.awardPoints(dmg_record);
@@ -148,10 +148,13 @@ public class FreeForAllGameType implements GameType
   @Override
   public void spawnPlayer(Player player)
   {
+    if(player == null) return;
+    
     Loadout loadout = this.fetchLoadout();
     Loadout old_loadout = this.game_manager.getLoadoutManager().getLoadout(player);
     
     Spawn spawn_loc = this.game_manager.getMapManager().getRandomSpawn();
+    if(spawn_loc == null) return;
     
     BukkitRunnable task = new BukkitRunnable(){
       @Override
@@ -170,7 +173,7 @@ public class FreeForAllGameType implements GameType
         // removing all the arrows.
         PlayerUtil.removeArrows(player);
         
-        stat_keeper.sendStatReport(player, old_loadout);
+        if(old_loadout != null) stat_keeper.sendStatReport(player, old_loadout);
       }
     };
     task.runTask(plugin);
@@ -180,7 +183,7 @@ public class FreeForAllGameType implements GameType
   @Override
   public void onTypeEnable()
   {
-    
+    this.spawnAllPlayers();
   }
 
   @Override
@@ -192,7 +195,12 @@ public class FreeForAllGameType implements GameType
   @Override
   public void onMapChange(MapChangeEvent event)
   {
-    
+    this.spawnAllPlayers();
+  }
+  
+  public void spawnAllPlayers()
+  {
+    PersistantPvP.group.performAction((Player p)->this.spawnPlayer(p));
   }
   
   private Loadout fetchLoadout()

@@ -11,6 +11,7 @@ import net.samongi.PersistantPvP.Commands.CommandMap;
 import net.samongi.PersistantPvP.Commands.CommandStats;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Listeners.EntityListener;
+import net.samongi.PersistantPvP.Listeners.GameListener;
 import net.samongi.PersistantPvP.Listeners.PlayerListener;
 import net.samongi.PersistantPvP.Maps.MapManager;
 import net.samongi.PersistantPvP.Score.Announcer;
@@ -72,6 +73,7 @@ public class PersistantPvP extends JavaPlugin
     PluginManager pm = this.getServer().getPluginManager();
     pm.registerEvents(new PlayerListener(this, this.game_handler, this.stat_keeper), this);
     pm.registerEvents(new EntityListener(this, this.game_handler, this.stat_keeper), this);
+    pm.registerEvents(new GameListener(this.game_handler), this);
     
     // Commands
     command_handler = new CommandHandler(this);
