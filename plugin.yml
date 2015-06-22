@@ -9,6 +9,12 @@ commands:
     description: This is the hub command for the plugin.
     usage: /<command>
     aliases: [ppvp]
+  stats:
+    description: Shows the stat of the player
+    usage: /<command>
+  map:
+    description: changes maps
+    usage: /<command> [map]
 permissions:
   persistantpvp.*:
     description: Gives access to EVERYTHING

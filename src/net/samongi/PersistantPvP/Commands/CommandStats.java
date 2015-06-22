@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 import net.samongi.PersistantPvP.GameManager.GameManager;
-import net.samongi.PersistantPvP.Players.Loadout;
+import net.samongi.PersistantPvP.Loadouts.Loadout;
 import net.samongi.PersistantPvP.Score.StatKeeper;
 import net.samongi.PersistantPvP.Score.StatRecord;
 import net.samongi.SamongiLib.CommandHandling.ArgumentType;
@@ -40,7 +40,7 @@ public class CommandStats extends BaseCommand
     if(args.length < 1 && SenderType.getSenderType(sender).equals(SenderType.PLAYER))
     {
       Player player = (Player) sender;
-      Loadout loadout = game_manager.getCurrentLoadout(player);
+      Loadout loadout = game_manager.getLoadoutManager().getLoadout(player);
       this.sendStatReport(player, loadout, sender);
       return true;
     }
@@ -57,7 +57,7 @@ public class CommandStats extends BaseCommand
       {
         sender.sendMessage(ChatColor.RED + "That player is currently not connected");
       }
-      Loadout loadout = game_manager.getCurrentLoadout(player);
+      Loadout loadout = game_manager.getLoadoutManager().getLoadout(player);
       this.sendStatReport(player, loadout, sender);
       return true;
     }

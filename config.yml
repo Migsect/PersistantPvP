@@ -1,3 +1,9 @@
 debug: true
-loadout-type: RANDOM
-single-loadout: 'basic'
+default-gametype: free-for-all
+gametypes:
+  ffa:
+    display-name: "Free For All"
+    gametype: FREEFORALL
+    loadout-type: RANDOM
+    single-loadout: 'basic'
+  

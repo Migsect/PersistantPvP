@@ -11,7 +11,7 @@ public class Announcer
 {
   private final StatKeeper stat_keeper;
   
-  public Announcer(StatKeeper stat_keeper, ScoreKeeper score_keeper, GameManager manager)
+  public Announcer(StatKeeper stat_keeper, GameManager manager)
   {
     this.stat_keeper = stat_keeper;
   }

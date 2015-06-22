@@ -2,7 +2,7 @@ package net.samongi.PersistantPvP.Listeners;
 
 import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.PersistantPvP.GameManager.GameManager;
-import net.samongi.PersistantPvP.Score.ScoreKeeper;
+import net.samongi.PersistantPvP.Score.StatKeeper;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -15,11 +15,11 @@ public class EntityListener implements Listener
 {
   @SuppressWarnings("unused")
   private final GameManager handler;
-  private final ScoreKeeper keeper;
+  private final StatKeeper keeper;
   @SuppressWarnings("unused")
   private final JavaPlugin plugin;
   
-  public EntityListener(JavaPlugin plugin, GameManager handler, ScoreKeeper keeper)
+  public EntityListener(JavaPlugin plugin, GameManager handler, StatKeeper keeper)
   {
     this.handler = handler;
     this.keeper = keeper;

@@ -1,4 +1,4 @@
-package net.samongi.PersistantPvP.Players;
+package net.samongi.PersistantPvP.Loadouts;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +23,8 @@ public class Loadout
 {
   // Static variables:
   private static final Set<Loadout> loadouts = new HashSet<>();
+  
+  private List<String> sorting_tags = new ArrayList<>();
   
   private int weight = 0;
   private String display_name = "Default Loadout One";
@@ -147,6 +149,10 @@ public class Loadout
       }
     }
     
+    // Getting the sorting tags:
+    List<String> sorting_tags = config.getConfig().getStringList(path+".tags");
+    if(sorting_tags != null) this.sorting_tags = sorting_tags;
+    
    Loadout.loadouts.add(this);
    
   }
@@ -156,6 +162,12 @@ public class Loadout
    * @return returns the weight of the loadout.
    */
   public int getWeight(){return this.weight;}
+  
+  /**Returns the tags that the loadout has associated with it.
+   * 
+   * @return A list of tags
+   */
+  public List<String> getSortingTags(){return this.sorting_tags;}
   
   /**Gets the display name of the loadout.
    * 

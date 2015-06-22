@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.samongi.PersistantPvP.PersistantPvP;
-import net.samongi.PersistantPvP.Players.Loadout;
+import net.samongi.PersistantPvP.Loadouts.Loadout;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
