@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import net.samongi.PersistantPvP.Commands.CommandHelp;
 import net.samongi.PersistantPvP.Commands.CommandMap;
 import net.samongi.PersistantPvP.Commands.CommandStats;
+import net.samongi.PersistantPvP.Commands.CommandVote;
 import net.samongi.PersistantPvP.GameManager.GameManager;
 import net.samongi.PersistantPvP.Listeners.EntityListener;
 import net.samongi.PersistantPvP.Listeners.GameListener;
@@ -79,7 +80,11 @@ public class PersistantPvP extends JavaPlugin
     command_handler = new CommandHandler(this);
     command_handler.registerCommand(new CommandHelp("persistantpvp",command_handler));
     command_handler.registerCommand(new CommandStats("persistantpvp stats",stat_keeper, game_handler));
+    command_handler.registerCommand(new CommandStats("stats",stat_keeper, game_handler));
     command_handler.registerCommand(new CommandMap("persistantpvp map", this.game_handler.getMapManager()));
+    command_handler.registerCommand(new CommandMap("map", this.game_handler.getMapManager()));
+    command_handler.registerCommand(new CommandVote("persistantpvp vote", this.game_handler.getVoteManager()));
+    command_handler.registerCommand(new CommandVote("vote", this.game_handler.getVoteManager()));
 	}
 	
 	public void onDisable()

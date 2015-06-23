@@ -22,6 +22,7 @@ import net.samongi.PersistantPvP.GameManager.GameType.GameType;
 import net.samongi.PersistantPvP.GameManager.GameType.FreeForAll.FreeForAllGameType;
 import net.samongi.PersistantPvP.Loadouts.LoadoutManager;
 import net.samongi.PersistantPvP.Maps.MapManager;
+import net.samongi.PersistantPvP.Maps.VoteManager;
 import net.samongi.PersistantPvP.Score.StatKeeper;
 
 public class GameManager
@@ -29,6 +30,7 @@ public class GameManager
   private final PersistantPvP plugin;
 	
   private final MapManager map_manager;
+  private final VoteManager vote_manager;
   private final LoadoutManager loadout_manager;
   private StatKeeper stat_keeper;
   
@@ -53,6 +55,9 @@ public class GameManager
 		  this.setCurrentGameType(gametypes_list.get(rand.nextInt(gametypes.size())));
 		}
 		else this.setCurrentGameType(default_gametype);
+		
+		this.vote_manager = new VoteManager(map_manager);
+		this.vote_manager.populateCandidates(3);
 	}
 	private void parseGameTypes(ConfigurationSection section)
 	{
@@ -145,5 +150,6 @@ public class GameManager
 	
 	public MapManager getMapManager(){return this.map_manager;}
 	public LoadoutManager getLoadoutManager(){return this.loadout_manager;}
+	public VoteManager getVoteManager(){return this.vote_manager;}
 	
 }
