@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import net.samongi.PersistantPvP.PersistantPvP;
@@ -48,6 +49,9 @@ public class MapManager
     MapChangeEvent event = new MapChangeEvent(this.current_map, map);
     this.current_map = map;
     Bukkit.getServer().getPluginManager().callEvent(event);
+    
+    World world = this.current_map.getWorld();
+    world.setTime(this.current_map.getTime());
     
     return true;
   }

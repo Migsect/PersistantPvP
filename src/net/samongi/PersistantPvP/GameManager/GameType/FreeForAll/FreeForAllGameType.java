@@ -108,6 +108,12 @@ public class FreeForAllGameType implements GameType
       
       PersistantPvP.announcer.onKill(kill_player);
     }
+    BukkitRunnable task = new BukkitRunnable()
+    {
+      @Override
+      public void run(){death_player.spigot().respawn(); }
+    };
+    task.runTaskLater(plugin, 1);
     
   }
 

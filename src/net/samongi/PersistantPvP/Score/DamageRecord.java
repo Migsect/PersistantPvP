@@ -36,7 +36,11 @@ public class DamageRecord
   public Player getPlayer(){return Bukkit.getPlayer(this.player);}
   
   public double getDamage(String player){return this.getDamage(Bukkit.getPlayer(player));}
-  public double getDamage(Player player){return this.getDamage(player.getUniqueId());}
+  public double getDamage(Player player)
+  {
+    if(player == null) return 0;
+    return this.getDamage(player.getUniqueId());
+  }
   public double getDamage(UUID player)
   {
     if(!player_damage.containsKey(player)) return 0;
