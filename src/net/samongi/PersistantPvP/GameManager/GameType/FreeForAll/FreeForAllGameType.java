@@ -113,7 +113,7 @@ public class FreeForAllGameType implements GameType
       @Override
       public void run(){death_player.spigot().respawn(); }
     };
-    task.runTaskLater(plugin, 1);
+    task.runTaskLater(plugin, 60);
     
   }
 
@@ -132,8 +132,11 @@ public class FreeForAllGameType implements GameType
   @Override
   public void onPlayerQuit(PlayerQuitEvent event)
   {
-    DamageRecord record = stat_keeper.getDamageRecord(event.getPlayer());
+    DamageRecord record = stat_keeper.getDamageRecord(event.getPlayer().getUniqueId());
+    if(record == null) return;
     score_keeper.awardPoints(record);
+    stat_keeper.removeFromDamageRecords(event.getPlayer().getUniqueId());
+    score_keeper.resetPlayer(event.getPlayer().getUniqueId());
   }
 
   @Override

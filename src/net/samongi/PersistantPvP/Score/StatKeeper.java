@@ -137,7 +137,7 @@ public class StatKeeper
    * 
    * @param player The player to remove
    */
-  public void removeFromDamageRecords(String player)
+  public void removeFromDamageRecords(UUID player)
   {
     for(UUID p : damage_records.keySet()){this.getDamageRecord(p).resetDamage(player);}
   }
@@ -145,7 +145,12 @@ public class StatKeeper
    * 
    * @param player The player to remove
    */
-  public void removeFromDamageRecords(Player player){this.removeFromDamageRecords(player.getName());}
+  public void removeFromDamageRecords(Player player){this.removeFromDamageRecords(player.getUniqueId());}
+  /**Removes the player from all damage records.
+   * 
+   * @param player The player to remove
+   */
+  public void removeFromDamageRecords(String player){this.removeFromDamageRecords(Bukkit.getPlayer(player));}
 
   
   /**Removes the player from all the damage_records of all other players.

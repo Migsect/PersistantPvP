@@ -39,6 +39,7 @@ public class FreeForAllScoreKeeper
   public void awardPoints(Player player){this.awardPoints(stat_keeper.getDamageRecord(player));}
   public void awardPoints(DamageRecord record)
   {
+    if(record == null) return;
     int player_score = this.getScore(record.getPlayer());
     int remove_score = (int) Math.ceil(player_score / 2.0);
     this.addScore(record.getPlayer(), -remove_score);
