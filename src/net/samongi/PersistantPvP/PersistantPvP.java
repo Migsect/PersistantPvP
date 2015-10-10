@@ -53,6 +53,7 @@ public class PersistantPvP extends JavaPlugin
     }
     debug = this.getConfig().getBoolean("debug", true);
     
+    
     // Statkeeper
     stat_keeper = new StatKeeper(this);
     stat_keeper.loadAllPlayers();

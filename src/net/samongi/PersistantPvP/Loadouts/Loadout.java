@@ -10,7 +10,7 @@ import java.util.Set;
 import net.samongi.PersistantPvP.PersistantPvP;
 import net.samongi.SamongiLib.Configuration.ConfigAccessor;
 import net.samongi.SamongiLib.Items.ItemUtil;
-import net.samongi.SamongiLib.Utilities.StringUtil;
+import net.samongi.SamongiLib.Utilities.TextUtil;
 
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -75,7 +75,7 @@ public class Loadout
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Subtitle Name: '" + subtitle + "'");
     
     // Getting info
-    List<String> got_info = StringUtil.formatString(config.getConfig().getStringList(path+".info"));
+    List<String> got_info = TextUtil.formatString(config.getConfig().getStringList(path+".info"));
     if(got_info != null) this.info = got_info;
     
     // Getting the loadout's weight
