@@ -44,6 +44,8 @@ public class Loadout
   // Potion Effects
   private List<PotionEffect> effects = new ArrayList<PotionEffect>();
   
+  private int select_slot;
+  
   /**Creates an empty loadout to be defined by code.
    * 
    * @param display_name The loadout's displayname.
@@ -86,6 +88,9 @@ public class Loadout
     this.game_mode = GameMode.valueOf(config.getConfig().getString(path + ".gamemode"));
     if(this.game_mode == null) game_mode = GameMode.ADVENTURE;
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Gamemode: " + game_mode);
+    
+    this.select_slot = config.getConfig().getInt(path + ".selected_slot", 0) % 9;
+    if(PersistantPvP.debug) PersistantPvP.logger.info("  Selected Slot: " + select_slot);
     
     // Helmet Getting
     if(PersistantPvP.debug) PersistantPvP.logger.info("  Getting Helmet... ");
@@ -244,6 +249,8 @@ public class Loadout
       if(PersistantPvP.debug)PersistantPvP.logger.info("  Equipping potion effect: " + e.getType().toString());
     	player.addPotionEffect(e);
     }
+    
+    player.getInventory().setHeldItemSlot(this.select_slot);
     
   }
   
